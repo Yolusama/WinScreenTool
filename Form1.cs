@@ -61,20 +61,7 @@ namespace ScreenTools
 
         private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dialog = new SaveFileDialog();
-            dialog.Filter = "PNG(*.png)|*.png|JPEG(*.jpeg;*.jpg;*.jpe;*jfif)|*.jpeg;*.jpg;*.jpe;*jfif";
-            dialog.Title = "保存";
-            string savePath = DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss");
-            dialog.FileName = savePath + " ScreenShot(屏幕截图).png";
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                string suffix = dialog.FileName.Substring(dialog.FileName.LastIndexOf('.'));
-                Regex regex = new Regex(suffix, RegexOptions.IgnoreCase);
-                if (regex.IsMatch(suffix))
-                    Shot.Image.Save(dialog.FileName, ImageFormat.Png);
-                else
-                    Shot.Image.Save(dialog.FileName, ImageFormat.Jpeg);
-            }
+            SaveDialogHelper.OpenToSaveImage(Shot.Image);
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)

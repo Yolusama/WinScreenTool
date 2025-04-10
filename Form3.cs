@@ -52,12 +52,18 @@ namespace ScreenTools
         {
             ContextMenuStrip menu = new ContextMenuStrip();
             ToolStripMenuItem item = new ToolStripMenuItem("关闭");
+            ToolStripMenuItem item1 = new ToolStripMenuItem("另存为");
             item.Click += (sender, e) =>
             {
                 Owner.Show();
                 Dispose();
             };
+            item1.Click += (sender, e) =>
+            {
+                SaveDialogHelper.OpenToSaveImage(Image);
+            };
             menu.Items.Add(item);
+            menu.Items.Add(item1);
             this.ContextMenuStrip = menu;
         }
 
