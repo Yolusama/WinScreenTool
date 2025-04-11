@@ -35,10 +35,8 @@
             // container
             // 
             container.BackgroundImageLayout = ImageLayout.Center;
-            container.Dock = DockStyle.Fill;
             container.Location = new Point(0, 0);
             container.Name = "container";
-            container.Size = new Size(800, 450);
             container.SizeMode = PictureBoxSizeMode.StretchImage;
             container.TabIndex = 0;
             container.TabStop = false;

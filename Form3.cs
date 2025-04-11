@@ -15,13 +15,6 @@ namespace ScreenTools
         public Form3()
         {
             InitializeComponent();
-            SetStyle(ControlStyles.DoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
-            UpdateStyles();
-        }
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            e.Graphics.FillRectangle(Brushes.White,this.Bounds);
         }
         public Image Image { get { return container.Image; } set { container.Image = value; } }
         private bool canMove = false;
@@ -31,15 +24,20 @@ namespace ScreenTools
         {
             StartPosition = FormStartPosition.Manual;
             DoubleBuffered = true;
-            this.Opacity = 0.75;
-            //Location = new Point(Screen.PrimaryScreen.WorkingArea.Right,Screen.PrimaryScreen.WorkingArea.Bottom);
+            BackColor = Color.SlateBlue;
+            Size = new Size(1080, 720);
+            int containerWidth =(int)(Width * 0.95);
+            int containerHeight = (int)(Height * 0.95);
+            container.Size = new Size(containerWidth, containerHeight);
+            container.ToCenter();
+            InitMenu();
         }
 
         private void container_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
-                OpenMenu();
+                ContextMenuStrip.Show();
             }
             else if (e.Button == MouseButtons.Left)
             {
@@ -48,12 +46,13 @@ namespace ScreenTools
             }
         }
 
-        private void OpenMenu()
+        private void InitMenu()
         {
             ContextMenuStrip menu = new ContextMenuStrip();
             ToolStripMenuItem item = new ToolStripMenuItem("关闭");
             ToolStripMenuItem item1 = new ToolStripMenuItem("另存为");
             item.Click += (sender, e) =>
+            
             {
                 Owner.Show();
                 Dispose();
@@ -64,7 +63,7 @@ namespace ScreenTools
             };
             menu.Items.Add(item);
             menu.Items.Add(item1);
-            this.ContextMenuStrip = menu;
+            ContextMenuStrip = menu;
         }
 
         private void container_MouseMove(object sender, MouseEventArgs e)
